@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { postedAt, stripHtml } from '../utils';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import { postedAt, stripHtml } from '../utils'
 
-function ThreadItem({
+function ThreadItem ({
   id, title, body, category, upVotesBy, downVotesBy, createdAt, totalComments, owner
 }) {
   return (
@@ -21,14 +21,14 @@ function ThreadItem({
             <span>Dibuat oleh { owner.name.split(' ')[0] }, { postedAt(createdAt) }</span>
         </div>
     </div>
-  );
+  )
 }
 
 const ownerShape = {
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired
-};
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired
+}
 
 const threadItemShape = {
   id: PropTypes.string.isRequired,
@@ -39,13 +39,13 @@ const threadItemShape = {
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   createdAt: PropTypes.string.isRequired,
   totalComments: PropTypes.number.isRequired,
-  owner: PropTypes.shape(ownerShape).isRequired,
-};
+  owner: PropTypes.shape(ownerShape).isRequired
+}
 
 ThreadItem.propTypes = {
-  ...threadItemShape,
-};
+  ...threadItemShape
+}
 
-export { threadItemShape };
+export { threadItemShape }
 
-export default ThreadItem;
+export default ThreadItem

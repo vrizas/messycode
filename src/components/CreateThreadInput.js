@@ -1,24 +1,24 @@
-import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
-import useInput from '../hooks/useInput';
+import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
+import useInput from '../hooks/useInput'
 
-function CreateThreadInput({ createThread }) {
-  const [title, onTitleChange, setTitle] = useInput();
-  const [body, onBodyChange, setBody] = useInput();
-  const [category, onCategoryChange, setCategory] = useInput();
-  const createThreadInputRef = useRef();
-  
-    const onBodyChangeHandler = ({ target }) => {
-        setBody(target.innerHTML);
-    }
+function CreateThreadInput ({ createThread }) {
+  const [title, onTitleChange, setTitle] = useInput()
+  const [body, onBodyChange, setBody] = useInput()
+  const [category, onCategoryChange, setCategory] = useInput()
+  const createThreadInputRef = useRef()
 
-    const createThreadHandler = (event) => {
-        event.preventDefault();
-        createThread({ title, body, category });
-        createThreadInputRef.current.innerHTML = '';
-    }
+  const onBodyChangeHandler = ({ target }) => {
+    setBody(target.innerHTML)
+  }
 
-    return (
+  const createThreadHandler = (event) => {
+    event.preventDefault()
+    createThread({ title, body, category })
+    createThreadInputRef.current.innerHTML = ''
+  }
+
+  return (
     <form className="flex flex-col gap-3" onSubmit={(event) => createThreadHandler(event) }>
         <div className="flex flex-col gap-1">
             <label htmlFor="title" className="font-medium">Title</label>
@@ -26,7 +26,7 @@ function CreateThreadInput({ createThread }) {
         </div>
         <div className="flex flex-col gap-1">
             <label htmlFor="body" className="font-medium">Body</label>
-            <div contentEditable="true" id="body" className="border border-darkGray rounded-md min-h-[100px] px-3 py-2 bg-white" onInput={onBodyChangeHandler} ref={createThreadInputRef} required></div> 
+            <div contentEditable="true" id="body" className="border border-darkGray rounded-md min-h-[100px] px-3 py-2 bg-white" onInput={onBodyChangeHandler} ref={createThreadInputRef} required></div>
         </div>
         <div className="flex flex-col gap-1">
             <label htmlFor="category" className="font-medium">Category</label>
@@ -34,11 +34,11 @@ function CreateThreadInput({ createThread }) {
         </div>
         <button type="submit" className="bg-primary py-2 px-5 text-white font-medium text-white rounded-md mt-3">Create</button>
     </form>
-    );
+  )
 }
 
 CreateThreadInput.propTypes = {
-  createThread: PropTypes.func.isRequired,
-};
+  createThread: PropTypes.func.isRequired
+}
 
-export default CreateThreadInput;
+export default CreateThreadInput

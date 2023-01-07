@@ -1,62 +1,61 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import ThreadCommentInput from '../components/ThreadCommentInput';
-import ThreadDetail from '../components/ThreadDetail';
-import { asyncDownVoteComment, asyncDownVoteThreadDetail, asyncReceiveThreadDetail, asyncUpVoteComment, asyncUpVoteThreadDetail } from '../states/threadDetail/action';
-import ThreadCommentsList from '../components/ThreadCommentsList';
-import { asyncAddComment } from '../states/threadDetail/action';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import ThreadCommentInput from '../components/ThreadCommentInput'
+import ThreadDetail from '../components/ThreadDetail'
+import { asyncDownVoteComment, asyncDownVoteThreadDetail, asyncReceiveThreadDetail, asyncUpVoteComment, asyncUpVoteThreadDetail, asyncAddComment } from '../states/threadDetail/action'
+import ThreadCommentsList from '../components/ThreadCommentsList'
 
-function DetailPage() {
-  const { id } = useParams();
+function DetailPage () {
+  const { id } = useParams()
   const {
     threadDetail = null,
-    authUser,
-  } = useSelector((states) => states);
-  const dispatch = useDispatch();
+    authUser
+  } = useSelector((states) => states)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(asyncReceiveThreadDetail(id));
-  }, [id, dispatch]);
+    dispatch(asyncReceiveThreadDetail(id))
+  }, [id, dispatch])
 
   const onComment = (content) => {
-    dispatch(asyncAddComment({ content, commentTo: id }));
+    dispatch(asyncAddComment({ content, commentTo: id }))
   }
 
   const onUpVoteThread = () => {
     if (authUser) {
-      return dispatch(asyncUpVoteThreadDetail());
+      return dispatch(asyncUpVoteThreadDetail())
     }
 
-    alert('You should login first');
+    alert('You should login first')
   }
 
   const onDownVoteThread = () => {
     if (authUser) {
-      return dispatch(asyncDownVoteThreadDetail());
+      return dispatch(asyncDownVoteThreadDetail())
     }
 
-    alert('You should login first');
+    alert('You should login first')
   }
 
   const onUpVoteComment = (commentId) => {
     if (authUser) {
-      return dispatch(asyncUpVoteComment(commentId));
+      return dispatch(asyncUpVoteComment(commentId))
     }
 
-    alert('You should login first');
+    alert('You should login first')
   }
 
   const onDownVoteComment = (commentId) => {
     if (authUser) {
-      return dispatch(asyncDownVoteComment(commentId));
+      return dispatch(asyncDownVoteComment(commentId))
     }
 
-    alert('You should login first');
+    alert('You should login first')
   }
 
   if (!threadDetail) {
-    return null;
+    return null
   }
 
   return (
@@ -68,7 +67,7 @@ function DetailPage() {
             <ThreadCommentsList comments={threadDetail.comments} upVoteComment={onUpVoteComment} downVoteComment={onDownVoteComment} authUser={authUser} />
         </section>
     </section>
-  );
+  )
 }
 
-export default DetailPage;
+export default DetailPage

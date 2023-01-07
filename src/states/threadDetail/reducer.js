@@ -1,30 +1,30 @@
-import { ActionType } from './action';
+import { ActionType } from './action'
 
-function threadDetailReducer(threadDetail = null, action = {}) {
+function threadDetailReducer (threadDetail = null, action = {}) {
   switch (action.type) {
     case ActionType.RECEIVE_THREAD_DETAIL:
-      return action.payload.threadDetail;
+      return action.payload.threadDetail
     case ActionType.CLEAR_THREAD_DETAIL:
-      return null;
+      return null
     case ActionType.UP_VOTE_THREAD_DETAIL:
       return {
         ...threadDetail,
         upVotesBy: threadDetail.upVotesBy.includes(action.payload.userId)
           ? threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
           : threadDetail.upVotesBy.concat(action.payload.userId),
-        downVotesBy: threadDetail.downVotesBy.filter((id) => id !== action.payload.userId),
-      };
+        downVotesBy: threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
+      }
     case ActionType.DOWN_VOTE_THREAD_DETAIL:
       return {
         ...threadDetail,
         downVotesBy: threadDetail.downVotesBy.includes(action.payload.userId)
           ? threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
           : threadDetail.downVotesBy.concat(action.payload.userId),
-        upVotesBy: threadDetail.upVotesBy.filter((id) => id !== action.payload.userId),
-      };
+        upVotesBy: threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
+      }
     default:
-      return threadDetail;
+      return threadDetail
   }
 }
 
-export default threadDetailReducer;
+export default threadDetailReducer

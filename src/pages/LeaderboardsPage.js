@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import LeaderboardsList from '../components/LeaderboardsList';
-import { asyncGetLeaderboars } from '../states/leaderboards/action';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import LeaderboardsList from '../components/LeaderboardsList'
+import { asyncGetLeaderboars } from '../states/leaderboards/action'
 
-function LeaderboardsPage() {
+function LeaderboardsPage () {
   const {
-    leaderboards = [],
-  } = useSelector((states) => states);
+    leaderboards = []
+  } = useSelector((states) => states)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(asyncGetLeaderboars());
-  }, [dispatch]);
-  
+    dispatch(asyncGetLeaderboars())
+  }, [dispatch])
+
   return (
     <section>
         <h2 className="font-bold text-lg mb-8">Leaderboards</h2>
         <LeaderboardsList leaderboards={leaderboards} />
     </section>
-  );
+  )
 }
 
-export default LeaderboardsPage;
+export default LeaderboardsPage

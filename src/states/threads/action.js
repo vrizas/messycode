@@ -1,65 +1,65 @@
-import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import api from '../../utils/api';
+import { hideLoading, showLoading } from 'react-redux-loading-bar'
+import api from '../../utils/api'
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
   CREATE_THREAD: 'CREATE_THREAD',
-  SEARCH_THREAD: 'SEARCH_THREAD',
-};
+  SEARCH_THREAD: 'SEARCH_THREAD'
+}
 
-function receiveThreadsActionCreator(threads) {
+function receiveThreadsActionCreator (threads) {
   return {
     type: ActionType.RECEIVE_THREADS,
     payload: {
-      threads,
-    },
-  };
+      threads
+    }
+  }
 }
 
-function createThreadActionCreator(thread) {
+function createThreadActionCreator (thread) {
   return {
     type: ActionType.CREATE_THREAD,
     payload: {
-      thread,
-    },
-  };
+      thread
+    }
+  }
 }
 
-function searchThreadActionCreator(keyword) {
+function searchThreadActionCreator (keyword) {
   return {
     type: ActionType.SEARCH_THREAD,
     payload: {
       keyword
-    },
-  };
+    }
+  }
 }
 
-function asyncCreateThread({ title, body, category }) {
+function asyncCreateThread ({ title, body, category }) {
   return async (dispatch) => {
-    dispatch(showLoading());
+    dispatch(showLoading())
     try {
-      const thread = await api.createThread({ title, body, category });
-      dispatch(createThreadActionCreator(thread));
-      alert('Thread created');
+      const thread = await api.createThread({ title, body, category })
+      dispatch(createThreadActionCreator(thread))
+      alert('Thread created')
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
     }
-    dispatch(hideLoading());
-  };
+    dispatch(hideLoading())
+  }
 }
 
-function asyncSearchThread(keyword) {
+function asyncSearchThread (keyword) {
   return async (dispatch) => {
-    dispatch(showLoading());
+    dispatch(showLoading())
     try {
-      const threads = await api.getAllThreads();
-      dispatch(receiveThreadsActionCreator(threads));
-      dispatch(searchThreadActionCreator(keyword));
+      const threads = await api.getAllThreads()
+      dispatch(receiveThreadsActionCreator(threads))
+      dispatch(searchThreadActionCreator(keyword))
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
     }
-    dispatch(hideLoading());
-  };
+    dispatch(hideLoading())
+  }
 }
 
 export {
@@ -68,5 +68,5 @@ export {
   createThreadActionCreator,
   searchThreadActionCreator,
   asyncCreateThread,
-  asyncSearchThread,
-};
+  asyncSearchThread
+}

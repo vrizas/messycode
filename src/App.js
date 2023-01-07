@@ -1,47 +1,47 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 // import Loading from './components/Loading';
 // import HomePage from './pages/HomePage';
 // import Navigation from './components/Navigation';
 // import RegisterPage from './pages/RegisterPage';
 // import DetailPage from './pages/DetailPage';
-import { asyncPreloadProcess } from './states/isPreload/action';
-import { asyncSetAuthUser, asyncUnsetAuthUser } from './states/authUser/action';
-import HomePage from './pages/HomePage';
-import Navigation from './components/Navigation';
-import Loading from './components/Loading';
-import DetailPage from './pages/DetailPage';
-import { asyncRegisterUser } from './states/users/action';
-import CreateThreadPage from './pages/CreateThreadPage';
-import LeaderboardsPage from './pages/LeaderboardsPage';
+import { asyncPreloadProcess } from './states/isPreload/action'
+import { asyncSetAuthUser, asyncUnsetAuthUser } from './states/authUser/action'
+import HomePage from './pages/HomePage'
+import Navigation from './components/Navigation'
+import Loading from './components/Loading'
+import DetailPage from './pages/DetailPage'
+import { asyncRegisterUser } from './states/users/action'
+import CreateThreadPage from './pages/CreateThreadPage'
+import LeaderboardsPage from './pages/LeaderboardsPage'
 
-function App() {
+function App () {
   const {
     authUser = null,
-    isPreload = false,
-  } = useSelector((states) => states);
+    isPreload = false
+  } = useSelector((states) => states)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(asyncPreloadProcess());
-  }, [dispatch]);
+    dispatch(asyncPreloadProcess())
+  }, [dispatch])
 
   const onLogin = ({ email, password }) => {
-    dispatch(asyncSetAuthUser({ email, password }));
-  };
-  
+    dispatch(asyncSetAuthUser({ email, password }))
+  }
+
   const onRegister = ({ name, email, password }) => {
-    dispatch(asyncRegisterUser({ name, email, password }));
-  };
+    dispatch(asyncRegisterUser({ name, email, password }))
+  }
 
   const onSignOut = () => {
-    dispatch(asyncUnsetAuthUser());
-  };
+    dispatch(asyncUnsetAuthUser())
+  }
 
   if (isPreload) {
-    return null;
+    return null
   }
 
   return (
@@ -64,7 +64,7 @@ function App() {
         </main>
       </div>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
