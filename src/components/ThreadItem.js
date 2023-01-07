@@ -40,11 +40,6 @@ const threadItemShape = {
 
 ThreadItem.propTypes = {
   ...threadItemShape,
-  like: PropTypes.func,
-};
-
-ThreadItem.defaultProps = {
-  like: null,
 };
 
 export { threadItemShape };

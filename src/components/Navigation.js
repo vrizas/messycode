@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import useInput from '../hooks/useInput';
 import { BsPlusCircleFill } from "react-icons/bs";
+import { MdLeaderboard } from "react-icons/md";
 import { Link } from 'react-router-dom';
 
 function Navigation({ authUser, login, register, signOut }) {
@@ -47,7 +48,11 @@ function Navigation({ authUser, login, register, signOut }) {
 
     if (authUser) {
         return (
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-3 md:gap-5">
+                <Link to="/leaderboards" className="text-[#38AC83] flex items-center gap-2">
+                    <MdLeaderboard className="text-2xl" />
+                    <span className="hidden md:inline">Leaderboards</span>
+                </Link>
                 <Link to="/thread/create" className="text-[#38AC83] flex items-center gap-2">
                     <BsPlusCircleFill className="text-2xl" />
                     <span className="hidden md:inline">Create New Thread</span>
@@ -59,7 +64,13 @@ function Navigation({ authUser, login, register, signOut }) {
 
     return (
         <div>
-            <button className="bg-primary text-white py-2 px-5 rounded-md font-medium" onClick={openLoginModal}>Login</button>
+            <div className="flex items-center gap-3 md:gap-5">
+                <Link to="/leaderboards" className="text-[#38AC83] flex items-center gap-2">
+                    <MdLeaderboard className="text-2xl" />
+                    <span className="hidden md:inline">Leaderboards</span>
+                </Link>
+                <button className="bg-primary text-white py-2 px-5 rounded-md font-medium" onClick={openLoginModal}>Login</button>
+            </div>
             <div className="fixed top-0 left-0 z-40 w-screen h-screen bg-[rgba(0,0,0,.5)] flex items-center justify-center hidden" onClick={closeModal} ref={loginModalRef}>
                 <form className="bg-white px-5 py-4 lg:px-8 lg:py-7 rounded-lg w-3/4 md:w-1/2 lg:w-1/3" onClick={(event) => event.stopPropagation()} onSubmit={(event) => loginHandler(event, { email: loginEmail, password: loginPassword })}>
                     <h2 className="font-medium text-primary text-lg mb-5">Login</h2>

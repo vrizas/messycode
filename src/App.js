@@ -14,6 +14,7 @@ import Loading from './components/Loading';
 import DetailPage from './pages/DetailPage';
 import { asyncRegisterUser } from './states/users/action';
 import CreateThreadPage from './pages/CreateThreadPage';
+import LeaderboardsPage from './pages/LeaderboardsPage';
 
 function App() {
   const {
@@ -57,6 +58,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/threads/:id" element={<DetailPage />} />
                     <Route path="/thread/create" element={<CreateThreadPage />} />
+                    <Route path="/leaderboards" element={<LeaderboardsPage />} />
                 </Routes>
             </div>
         </main>
