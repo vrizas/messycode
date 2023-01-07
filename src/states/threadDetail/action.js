@@ -46,6 +46,20 @@ function asyncReceiveThreadDetail(threadId) {
   };
 }
 
+function asyncAddComment({ content, commentTo = '' }) {
+  return async (dispatch) => {
+    dispatch(showLoading());
+    try {
+      await api.createComment({ content, threadId: commentTo });
+      const threadDetail = await api.getThreadDetail(commentTo);
+      dispatch(receiveThreadDetailActionCreator(threadDetail));
+    } catch (error) {
+      alert(error.message);
+    }
+    dispatch(hideLoading());
+  };
+}
+
 function asyncToogleLikeThreadDetail() {
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState();
@@ -65,5 +79,6 @@ export {
   clearThreadDetailActionCreator,
   toggleLikeThreadDetailActionCreator,
   asyncReceiveThreadDetail,
+  asyncAddComment,
   asyncToogleLikeThreadDetail,
 };

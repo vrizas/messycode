@@ -19,14 +19,13 @@ const api = (() => {
     return localStorage.getItem('accessToken');
   }
 
-  async function register({ id, name, email, password }) {
+  async function register({ name, email, password }) {
     const response = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id,
         name,
         email,
         password,

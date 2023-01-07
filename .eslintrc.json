@@ -22,6 +22,7 @@
         "linebreak-style": "off",
         "no-alert": "off",
         "no-underscore-dangle": "off",
+        "no-unused-vars": "off",
         "import/prefer-default-export": "off",
         "react/jsx-filename-extension": "off",
         "react-hooks/rules-of-hooks": "error",

@@ -5,6 +5,7 @@ import ThreadCommentInput from '../components/ThreadCommentInput';
 import ThreadDetail from '../components/ThreadDetail';
 import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
 import ThreadCommentsList from '../components/ThreadCommentsList';
+import { asyncAddComment } from '../states/threadDetail/action';
 
 function DetailPage() {
   const { id } = useParams();
@@ -18,6 +19,10 @@ function DetailPage() {
     dispatch(asyncReceiveThreadDetail(id));
   }, [id, dispatch]);
 
+  const onComment = (content) => {
+    dispatch(asyncAddComment({ content, commentTo: id }));
+  }
+
   if (!threadDetail) {
     return null;
   }
@@ -27,7 +32,7 @@ function DetailPage() {
         <ThreadDetail {...threadDetail} />
         <section className="mt-5">
             <h3 className="font-medium text-md mb-2">Answers</h3>
-            <ThreadCommentInput authUser={authUser} />
+            <ThreadCommentInput comment={onComment} authUser={authUser} />
             <ThreadCommentsList comments={threadDetail.comments} />
         </section>
     </section>

@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 // import RegisterPage from './pages/RegisterPage';
 // import DetailPage from './pages/DetailPage';
 import { asyncPreloadProcess } from './states/isPreload/action';
-import { asyncUnsetAuthUser } from './states/authUser/action';
+import { asyncSetAuthUser, asyncUnsetAuthUser } from './states/authUser/action';
 import HomePage from './pages/HomePage';
 import Navigation from './components/Navigation';
 import Loading from './components/Loading';
 import DetailPage from './pages/DetailPage';
+import { asyncRegisterUser } from './states/users/action';
 
 function App() {
   const {
@@ -25,6 +26,14 @@ function App() {
     dispatch(asyncPreloadProcess());
   }, [dispatch]);
 
+  const onLogin = ({ email, password }) => {
+    dispatch(asyncSetAuthUser({ email, password }));
+  };
+  
+  const onRegister = ({ name, email, password }) => {
+    dispatch(asyncRegisterUser({ name, email, password }));
+  };
+
   const onSignOut = () => {
     dispatch(asyncUnsetAuthUser());
   };
@@ -37,9 +46,9 @@ function App() {
     <>
       <Loading />
       <div>
-        <header className="sticky top-0 z-40 py-3 px-4 bg-white shadow-main flex justify-between items-center lg:px-12">
+        <header className="sticky top-0 z-30 py-3 px-4 bg-white shadow-main flex justify-between items-center lg:px-12">
             <h1 className="text-primary font-bold text-xl"><Link to="/">Messy Code</Link></h1>
-            <Navigation authUser={authUser} signOut={onSignOut} />
+            <Navigation authUser={authUser} login={onLogin} register={onRegister} signOut={onSignOut} />
         </header>
         <main className="py-5 px-4 lg:py-0 lg:px-16 lg:mx-auto">
             <div className="lg:min-h-[calc(100vh-64px)] lg:bg-white lg:py-5 lg:px-8">
