@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { postedAt, stripHtml } from '../utils';
 
 function ThreadItem({
   id, title, body, category, upVotesBy, downVotesBy, createdAt, owner
 }) {
-  const navigate = useNavigate();
-
   return (
     <div key={ id } className="bg-white shadow-main rounded-md py-3 px-4">
-        <h2 className="thread-item__head font-bold text-lg text-ellipsis overflow-hidden h-[30px] w-full"><Link to="">{ title }</Link></h2>
+        <h2 className="thread-item__head font-bold text-lg text-ellipsis overflow-hidden h-[30px] w-full"><Link to={`/threads/${id}`}>{ title }</Link></h2>
         <p className="thread-item__body text-ellipsis overflow-hidden h-[70px] w-full mt-1">{ stripHtml(body) }</p>
         <div className="flex gap-3 my-3 text-sm">
             <span className="py-1 px-3 bg-secondary rounded-md">#{ category }</span>
@@ -26,7 +24,8 @@ function ThreadItem({
 const ownerShape = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-  };
+    avatar: PropTypes.string.isRequired
+};
 
 const threadItemShape = {
   id: PropTypes.string.isRequired,
@@ -35,7 +34,6 @@ const threadItemShape = {
   category: PropTypes.string.isRequired,
   upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
-  ownerId: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   owner: PropTypes.shape(ownerShape).isRequired,
 };

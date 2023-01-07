@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { asyncPopulateUsersAndThreads } from '../states/shared/action';
-import { asyncAddThread, asyncToogleLikeThread, asyncSearchThread } from '../states/threads/action';
+import { asyncSearchThread } from '../states/threads/action';
 import SearchBar from '../components/SearchBar';
 import ThreadsList from '../components/ThreadsList';
 
@@ -16,17 +16,9 @@ function HomePage() {
   useEffect(() => {
     dispatch(asyncPopulateUsersAndThreads());
   }, [dispatch]);
-  
-  const onAddThread = (text) => {
-    dispatch(asyncAddThread({ text }));
-  };
 
   const onSearchThread = (keyword) => {
 	dispatch(asyncSearchThread(keyword));
-  };
-
-  const onLike = (id) => {
-    dispatch(asyncToogleLikeThread(id));
   };
   
   const threadsList = threads.map((thread) => ({
@@ -35,7 +27,7 @@ function HomePage() {
   }));
 
   return (
-    <section className="home-page">
+    <section>
         <SearchBar search={onSearchThread} />
         <ThreadsList threads={threadsList} />
     </section>
