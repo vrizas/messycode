@@ -4,7 +4,10 @@ import api from '../../utils/api';
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
-  TOGGLE_LIKE_THREAD_DETAIL: 'TOGGLE_LIKE_THREAD_DETAIL',
+  UP_VOTE_THREAD_DETAIL: 'UP_VOTE_THREAD_DETAIL',
+  DOWN_VOTE_THREAD_DETAIL: 'DOWN_VOTE_THREAD_DETAIL',
+  UP_VOTE_COMMENT: 'UP_VOTE_COMMENT',
+  DOWN_VOTE_COMMENT: 'DOWN_VOTE_COMMENT',
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {
@@ -22,9 +25,36 @@ function clearThreadDetailActionCreator() {
   };
 }
 
-function toggleLikeThreadDetailActionCreator(userId) {
+function upVoteThreadDetailActionCreator(userId) {
   return {
-    type: ActionType.TOGGLE_LIKE_THREAD_DETAIL,
+    type: ActionType.UP_VOTE_THREAD_DETAIL,
+    payload: {
+      userId,
+    },
+  };
+}
+
+function downVoteThreadDetailActionCreator(userId) {
+  return {
+    type: ActionType.DOWN_VOTE_THREAD_DETAIL,
+    payload: {
+      userId,
+    },
+  };
+}
+
+function upVoteCommentActionCreator(userId) {
+  return {
+    type: ActionType.UP_VOTE_COMMENT,
+    payload: {
+      userId,
+    },
+  };
+}
+
+function downVoteCommentActionCreator(userId) {
+  return {
+    type: ActionType.DOWN_VOTE_COMMENT,
     payload: {
       userId,
     },
@@ -60,13 +90,54 @@ function asyncAddComment({ content, commentTo = '' }) {
   };
 }
 
-function asyncToogleLikeThreadDetail() {
+function asyncUpVoteThreadDetail() {
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState();
-    dispatch(toggleLikeThreadDetailActionCreator(authUser.id));
+    dispatch(upVoteThreadDetailActionCreator(authUser.id));
 
     try {
-      await api.toggleLikeThread(threadDetail.id);
+      await api.upVoteThread(threadDetail.id);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+}
+
+function asyncDownVoteThreadDetail() {
+  return async (dispatch, getState) => {
+    const { authUser, threadDetail } = getState();
+    dispatch(downVoteThreadDetailActionCreator(authUser.id));
+
+    try {
+      await api.downVoteThread(threadDetail.id);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+}
+
+function asyncUpVoteComment(commentId) {
+  return async (dispatch, getState) => {
+    const { threadDetail } = getState();
+
+    try {
+      await api.upVoteComment({threadId: threadDetail.id, commentId});
+      const newThreadDetail = await api.getThreadDetail(threadDetail.id);
+      dispatch(receiveThreadDetailActionCreator(newThreadDetail));
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+}
+
+function asyncDownVoteComment(commentId) {
+  return async (dispatch, getState) => {
+    const { threadDetail } = getState();
+
+    try {
+      await api.downVoteComment({threadId: threadDetail.id, commentId});
+      const newThreadDetail = await api.getThreadDetail(threadDetail.id);
+      dispatch(receiveThreadDetailActionCreator(newThreadDetail));
     } catch (error) {
       alert(error.message);
     }
@@ -77,8 +148,14 @@ export {
   ActionType,
   receiveThreadDetailActionCreator,
   clearThreadDetailActionCreator,
-  toggleLikeThreadDetailActionCreator,
+  upVoteThreadDetailActionCreator,
+  downVoteThreadDetailActionCreator,
+  upVoteCommentActionCreator,
+  downVoteCommentActionCreator,
   asyncReceiveThreadDetail,
   asyncAddComment,
-  asyncToogleLikeThreadDetail,
+  asyncUpVoteThreadDetail,
+  asyncDownVoteThreadDetail,
+  asyncUpVoteComment,
+  asyncDownVoteComment,
 };

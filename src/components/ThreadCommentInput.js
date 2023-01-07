@@ -32,7 +32,7 @@ function ThreadCommentInput({ comment, authUser }) {
 
 ThreadCommentInput.propTypes = {
   comment: PropTypes.func.isRequired,
-  authUser: PropTypes.object.isRequired
+  authUser: PropTypes.object,
 };
 
 export default ThreadCommentInput;

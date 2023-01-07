@@ -5,7 +5,6 @@ const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
   CREATE_THREAD: 'CREATE_THREAD',
   SEARCH_THREAD: 'SEARCH_THREAD',
-  TOGGLE_LIKE_THREAD: 'TOGGLE_LIKE_THREAD',
 };
 
 function receiveThreadsActionCreator(threads) {
@@ -31,16 +30,6 @@ function searchThreadActionCreator(keyword) {
     type: ActionType.SEARCH_THREAD,
     payload: {
       keyword
-    },
-  };
-}
-
-function toggleLikeThreadActionCreator({ threadId, userId }) {
-  return {
-    type: ActionType.TOGGLE_LIKE_THREAD,
-    payload: {
-      threadId,
-      userId,
     },
   };
 }
@@ -73,29 +62,11 @@ function asyncSearchThread(keyword) {
   };
 }
 
-function asyncToogleLikeThread(threadId) {
-  return async (dispatch, getState) => {
-    dispatch(showLoading());
-    const { authUser } = getState();
-    dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id }));
-
-    try {
-      await api.toggleLikeThread(threadId);
-    } catch (error) {
-      alert(error.message);
-      dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id }));
-    }
-    dispatch(hideLoading());
-  };
-}
-
 export {
   ActionType,
   receiveThreadsActionCreator,
   createThreadActionCreator,
   searchThreadActionCreator,
-  toggleLikeThreadActionCreator,
   asyncCreateThread,
   asyncSearchThread,
-  asyncToogleLikeThread,
 };
