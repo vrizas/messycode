@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import useInput from '../hooks/useInput';
 
@@ -8,26 +8,22 @@ function Navigation({ authUser, login, register, signOut }) {
     const [registerEmail, onRegisterEmailChange, setRegisterEmail] = useInput('');
     const [loginPassword, onLoginPasswordChange, setLoginPassword] = useInput('');
     const [registerPassword, onRegisterPasswordChange, setRegisterPassword] = useInput('');
+    const loginModalRef = useRef();
+    const registerModalRef = useRef();
     
     const openLoginModal = () => {
-        const loginModal = document.querySelector('.login-modal');
-        const registerModal = document.querySelector('.register-modal');
-        loginModal.classList.remove('hidden');
-        registerModal.classList.add('hidden');
+        loginModalRef.current.classList.remove('hidden');
+        registerModalRef.current.classList.add('hidden');
     }
 
     const openRegisterModal = () => {
-        const loginModal = document.querySelector('.login-modal');
-        const registerModal = document.querySelector('.register-modal');
-        loginModal.classList.add('hidden');
-        registerModal.classList.remove('hidden');
+        loginModalRef.current.classList.add('hidden');
+        registerModalRef.current.classList.remove('hidden');
     }
 
     const closeModal = () => {
-        const loginModal = document.querySelector('.login-modal');
-        const registerModal = document.querySelector('.register-modal');
-        loginModal.classList.add('hidden');
-        registerModal.classList.add('hidden');
+        loginModalRef.current.classList.add('hidden');
+        registerModalRef.current.classList.add('hidden');
     }
 
     const loginHandler = (event, { email, password }) => {
@@ -54,7 +50,7 @@ function Navigation({ authUser, login, register, signOut }) {
     return (
         <div>
             <button className="bg-primary text-white py-2 px-5 rounded-md font-medium" onClick={openLoginModal}>Login</button>
-            <div className="login-modal fixed top-0 left-0 z-40 w-screen h-screen bg-[rgba(0,0,0,.5)] flex items-center justify-center hidden" onClick={closeModal}>
+            <div className="fixed top-0 left-0 z-40 w-screen h-screen bg-[rgba(0,0,0,.5)] flex items-center justify-center hidden" onClick={closeModal} ref={loginModalRef}>
                 <form className="bg-white px-5 py-4 lg:px-8 lg:py-7 rounded-lg w-3/4 md:w-1/2 lg:w-1/3" onClick={(event) => event.stopPropagation()} onSubmit={(event) => loginHandler(event, { email: loginEmail, password: loginPassword })}>
                     <h2 className="font-medium text-primary text-lg mb-5">Login</h2>
                     <div className="flex flex-col gap-2">
@@ -65,7 +61,7 @@ function Navigation({ authUser, login, register, signOut }) {
                     </div>
                 </form>
             </div>
-            <div className="register-modal fixed top-0 left-0 z-40 w-screen h-screen bg-[rgba(0,0,0,.5)] flex items-center justify-center hidden" onClick={closeModal}>
+            <div className="fixed top-0 left-0 z-40 w-screen h-screen bg-[rgba(0,0,0,.5)] flex items-center justify-center hidden" onClick={closeModal} ref={registerModalRef}>
                 <form className="bg-white px-5 py-4 lg:px-8 lg:py-7 rounded-lg w-3/4 md:w-1/2 lg:w-1/3" onClick={(event) => event.stopPropagation()} onSubmit={(event) => registerHandler(event, { name: registerName, email: registerEmail, password: registerPassword })}>
                     <h2 className="font-medium text-primary text-lg mb-5">Register</h2>
                     <div className="flex flex-col gap-2">
