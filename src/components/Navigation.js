@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import useInput from '../hooks/useInput';
+import { BsPlusCircleFill } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
 function Navigation({ authUser, login, register, signOut }) {
     const [registerName, onRegisterNameChange, setRegisterName] = useInput('');
@@ -44,7 +46,15 @@ function Navigation({ authUser, login, register, signOut }) {
     }
 
     if (authUser) {
-        return <button className="bg-danger text-white py-2 px-5 rounded-md font-medium" onClick={signOut}>Logout</button>
+        return (
+            <div className="flex items-center gap-5">
+                <Link to="/thread/create" className="text-[#38AC83] flex items-center gap-2">
+                    <BsPlusCircleFill className="text-2xl" />
+                    <span className="hidden md:inline">Create New Thread</span>
+                </Link>
+                <button className="bg-danger text-white py-2 px-5 rounded-md font-medium text-sm" onClick={signOut}>Logout</button>
+            </div>
+        )
     }
 
     return (

@@ -3,7 +3,7 @@ import api from '../../utils/api';
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
-  ADD_THREAD: 'ADD_THREAD',
+  CREATE_THREAD: 'CREATE_THREAD',
   SEARCH_THREAD: 'SEARCH_THREAD',
   TOGGLE_LIKE_THREAD: 'TOGGLE_LIKE_THREAD',
 };
@@ -17,9 +17,9 @@ function receiveThreadsActionCreator(threads) {
   };
 }
 
-function addThreadActionCreator(thread) {
+function createThreadActionCreator(thread) {
   return {
-    type: ActionType.ADD_THREAD,
+    type: ActionType.CREATE_THREAD,
     payload: {
       thread,
     },
@@ -45,12 +45,13 @@ function toggleLikeThreadActionCreator({ threadId, userId }) {
   };
 }
 
-function asyncAddThread({ text, replyTo = '' }) {
+function asyncCreateThread({ title, body, category }) {
   return async (dispatch) => {
     dispatch(showLoading());
     try {
-      const thread = await api.createThread({ text, replyTo });
-      dispatch(addThreadActionCreator(thread));
+      const thread = await api.createThread({ title, body, category });
+      dispatch(createThreadActionCreator(thread));
+      alert('Thread created');
     } catch (error) {
       alert(error.message);
     }
@@ -91,10 +92,10 @@ function asyncToogleLikeThread(threadId) {
 export {
   ActionType,
   receiveThreadsActionCreator,
-  addThreadActionCreator,
+  createThreadActionCreator,
   searchThreadActionCreator,
   toggleLikeThreadActionCreator,
-  asyncAddThread,
+  asyncCreateThread,
   asyncSearchThread,
   asyncToogleLikeThread,
 };
