@@ -4,6 +4,7 @@ import api from '../../utils/api';
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
   ADD_THREAD: 'ADD_THREAD',
+  SEARCH_THREAD: 'SEARCH_THREAD',
   TOGGLE_LIKE_THREAD: 'TOGGLE_LIKE_THREAD',
 };
 
@@ -21,6 +22,15 @@ function addThreadActionCreator(thread) {
     type: ActionType.ADD_THREAD,
     payload: {
       thread,
+    },
+  };
+}
+
+function searchThreadActionCreator(keyword) {
+  return {
+    type: ActionType.SEARCH_THREAD,
+    payload: {
+      keyword
     },
   };
 }
@@ -48,6 +58,20 @@ function asyncAddThread({ text, replyTo = '' }) {
   };
 }
 
+function asyncSearchThread(keyword) {
+  return async (dispatch) => {
+    dispatch(showLoading());
+    try {
+      const threads = await api.getAllThreads();
+      dispatch(receiveThreadsActionCreator(threads));
+      dispatch(searchThreadActionCreator(keyword));
+    } catch (error) {
+      alert(error.message);
+    }
+    dispatch(hideLoading());
+  };
+}
+
 function asyncToogleLikeThread(threadId) {
   return async (dispatch, getState) => {
     dispatch(showLoading());
@@ -68,7 +92,9 @@ export {
   ActionType,
   receiveThreadsActionCreator,
   addThreadActionCreator,
+  searchThreadActionCreator,
   toggleLikeThreadActionCreator,
   asyncAddThread,
+  asyncSearchThread,
   asyncToogleLikeThread,
 };

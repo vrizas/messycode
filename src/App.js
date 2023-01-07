@@ -1,26 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+// import Loading from './components/Loading';
+// import HomePage from './pages/HomePage';
+// import Navigation from './components/Navigation';
+// import RegisterPage from './pages/RegisterPage';
+// import DetailPage from './pages/DetailPage';
+import { asyncPreloadProcess } from './states/isPreload/action';
+import { asyncUnsetAuthUser } from './states/authUser/action';
+import HomePage from './pages/HomePage';
+import Navigation from './components/Navigation';
+import Loading from './components/Loading';
 
 function App() {
-  console.log(useSelector((states) => states));
+  const {
+    authUser = null,
+    isPreload = false,
+  } = useSelector((states) => states);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(asyncPreloadProcess());
+  }, [dispatch]);
+
+  const onSignOut = () => {
+    dispatch(asyncUnsetAuthUser());
+  };
+
+  if (isPreload) {
+    return null;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Loading />
+      <div>
+        <header className="sticky top-0 z-50 py-3 px-4 bg-white shadow-main flex justify-between items-center lg:px-12">
+            <h1 className="text-primary font-bold text-xl">Messy Code</h1>
+            <Navigation authUser={authUser} />
+        </header>
+        <main className="py-5 px-4 lg:py-0 lg:px-16 lg:mx-auto">
+            <div className="lg:bg-white lg:py-5 lg:px-4">
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    {/* <Route path="/threads/:id" element={<DetailPage />} /> */}
+                </Routes>
+            </div>
+        </main>
+      </div>
+    </>
   );
 }
 
