@@ -16,7 +16,10 @@ function ThreadDetail({
             <div className="flex gap-3 my-2 text-sm">
                 <span className="py-1 px-3 bg-secondary rounded-md">#{ category }</span>
             </div>
-            <p className="text-sm">Dibuat oleh { owner.name }, { postedAt(createdAt) }</p>
+            <p className="text-sm">
+                Dibuat oleh 
+                <img src={ owner.avatar } alt={ owner.name } width="20" height="20" className="rounded-full object-cover inline mx-1" />{ owner.name }, { postedAt(createdAt) }
+            </p>
             <article className="flex gap-5 mt-3">
                 <div className="flex flex-col items-center gap-3 mt-2 text-darkGray">
                     {
