@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-// import Loading from './components/Loading';
-// import HomePage from './pages/HomePage';
-// import Navigation from './components/Navigation';
-// import RegisterPage from './pages/RegisterPage';
-// import DetailPage from './pages/DetailPage';
 import { asyncPreloadProcess } from './states/isPreload/action'
 import { asyncSetAuthUser, asyncUnsetAuthUser } from './states/authUser/action'
 import HomePage from './pages/HomePage'
