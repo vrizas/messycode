@@ -1,6 +1,6 @@
 import threadsReducer from './reducer'
 
-describe('threadReducers function', () => {
+describe('threadsReducers function', () => {
   it('should return the initial state when given by unknown action', () => {
     const initialState = []
     const action = { type: 'UNKNOWN' }

@@ -1,6 +1,6 @@
 import authUserReducer from './reducer'
 
-describe('threadReducers function', () => {
+describe('authUserReducer function', () => {
   it('should return the initial state when given by unknown action', () => {
     const initialState = null
     const action = { type: 'UNKNOWN' }
