@@ -14,7 +14,7 @@ function receiveLeaderboardsActionCreator (leaderboards) {
   }
 }
 
-function asyncGetLeaderboars () {
+function asyncGetLeaderboards () {
   return async (dispatch) => {
     dispatch(showLoading())
 
@@ -33,5 +33,5 @@ function asyncGetLeaderboars () {
 export {
   ActionType,
   receiveLeaderboardsActionCreator,
-  asyncGetLeaderboars
+  asyncGetLeaderboards
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import LeaderboardsList from '../components/LeaderboardsList'
-import { asyncGetLeaderboars } from '../states/leaderboards/action'
+import { asyncGetLeaderboards } from '../states/leaderboards/action'
 
 function LeaderboardsPage () {
   const {
@@ -11,7 +11,7 @@ function LeaderboardsPage () {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(asyncGetLeaderboars())
+    dispatch(asyncGetLeaderboards())
   }, [dispatch])
 
   return (
