@@ -19,7 +19,7 @@ function ThreadCommentInput ({ comment, authUser }) {
   if (authUser) {
     return (
         <form onSubmit={(event) => commentHandler(event) }>
-            <div contentEditable="true" className="border border-darkGray rounded-md min-h-[100px] px-3 py-2 bg-white" onInput={onContentChangeHandler} ref={commentInputRef}></div>
+            <div contentEditable="true" placeholder="Comment" className="border border-darkGray rounded-md min-h-[100px] px-3 py-2 bg-white" onInput={onContentChangeHandler} ref={commentInputRef}></div>
             <button type="submit" className="bg-primary py-2 px-5 text-white font-medium text-white rounded-md mt-3">Send</button>
         </form>
     )
