@@ -126,6 +126,7 @@ function asyncUpVoteComment (commentId) {
       dispatch(receiveThreadDetailActionCreator(newThreadDetail))
     } catch (error) {
       alert(error.message)
+      dispatch(receiveThreadDetailActionCreator(threadDetail))
     }
   }
 }
@@ -140,6 +141,7 @@ function asyncDownVoteComment (commentId) {
       dispatch(receiveThreadDetailActionCreator(newThreadDetail))
     } catch (error) {
       alert(error.message)
+      dispatch(receiveThreadDetailActionCreator(threadDetail))
     }
   }
 }
