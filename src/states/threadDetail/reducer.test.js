@@ -1,3 +1,14 @@
+/**
+ * test scenario for threadDetailReducer
+ *
+ * - threadDetailReducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return the detail thread when given by RECEIVE_THREAD_DETAIL action
+ *  - should return the detail thread with the up voted thread when given by UP_VOTE_THREAD_DETAIL action
+ *  - should return the detail thread with the down voted thread when given by DOWN_VOTE_THREAD_DETAIL action
+ *
+ */
+
 import threadDetailReducer from './reducer'
 
 describe('threadDetailReducer function', () => {

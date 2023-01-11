@@ -1,6 +1,17 @@
+/**
+ * test scenario for threadsReducer
+ *
+ * - threadsReducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return the threads when given by RECEIVE_THREADS action
+ *  - should return the threads with the new thread when given by ADD_THREADS action
+ *  - should return the filtered threads when given when given by SEARCH_THREAD action
+ *
+ */
+
 import threadsReducer from './reducer'
 
-describe('threadsReducers function', () => {
+describe('threadsReducer function', () => {
   it('should return the initial state when given by unknown action', () => {
     const initialState = []
     const action = { type: 'UNKNOWN' }

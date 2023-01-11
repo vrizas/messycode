@@ -1,3 +1,13 @@
+/**
+ * test scenario for authUserReducer
+ *
+ * - authUserReducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return the auth user when given by SET_AUTH_USER action
+ *  - should return the null when given by UNSET_AUTH_USER action
+ *
+ */
+
 import authUserReducer from './reducer'
 
 describe('authUserReducer function', () => {
