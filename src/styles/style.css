@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #E9E9D6;
+}
+
+.thread-item__head, .thread-item__body {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.thread-item__head {
+    -webkit-line-clamp: 1;
+}
+
+.thread-item__body {
+    -webkit-line-clamp: 3;
+}

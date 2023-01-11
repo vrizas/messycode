@@ -1,74 +1,72 @@
-import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import api from '../../utils/api';
+import { hideLoading, showLoading } from 'react-redux-loading-bar'
+import api from '../../utils/api'
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
-  ADD_THREAD: 'ADD_THREAD',
-  TOGGLE_LIKE_THREAD: 'TOGGLE_LIKE_THREAD',
-};
+  CREATE_THREAD: 'CREATE_THREAD',
+  SEARCH_THREAD: 'SEARCH_THREAD'
+}
 
-function receiveThreadsActionCreator(threads) {
+function receiveThreadsActionCreator (threads) {
   return {
     type: ActionType.RECEIVE_THREADS,
     payload: {
-      threads,
-    },
-  };
+      threads
+    }
+  }
 }
 
-function addThreadActionCreator(thread) {
+function createThreadActionCreator (thread) {
   return {
-    type: ActionType.ADD_THREAD,
+    type: ActionType.CREATE_THREAD,
     payload: {
-      thread,
-    },
-  };
+      thread
+    }
+  }
 }
 
-function toggleLikeThreadActionCreator({ threadId, userId }) {
+function searchThreadActionCreator (keyword) {
   return {
-    type: ActionType.TOGGLE_LIKE_THREAD,
+    type: ActionType.SEARCH_THREAD,
     payload: {
-      threadId,
-      userId,
-    },
-  };
+      keyword
+    }
+  }
 }
 
-function asyncAddThread({ text, replyTo = '' }) {
+function asyncCreateThread ({ title, body, category }) {
   return async (dispatch) => {
-    dispatch(showLoading());
+    dispatch(showLoading())
     try {
-      const thread = await api.createThread({ text, replyTo });
-      dispatch(addThreadActionCreator(thread));
+      const thread = await api.createThread({ title, body, category })
+      dispatch(createThreadActionCreator(thread))
+      alert('Thread created')
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
     }
-    dispatch(hideLoading());
-  };
+    dispatch(hideLoading())
+  }
 }
 
-function asyncToogleLikeThread(threadId) {
-  return async (dispatch, getState) => {
-    dispatch(showLoading());
-    const { authUser } = getState();
-    dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id }));
-
+function asyncSearchThread (keyword) {
+  return async (dispatch) => {
+    dispatch(showLoading())
     try {
-      await api.toggleLikeThread(threadId);
+      const threads = await api.getAllThreads()
+      dispatch(receiveThreadsActionCreator(threads))
+      dispatch(searchThreadActionCreator(keyword))
     } catch (error) {
-      alert(error.message);
-      dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id }));
+      alert(error.message)
     }
-    dispatch(hideLoading());
-  };
+    dispatch(hideLoading())
+  }
 }
 
 export {
   ActionType,
   receiveThreadsActionCreator,
-  addThreadActionCreator,
-  toggleLikeThreadActionCreator,
-  asyncAddThread,
-  asyncToogleLikeThread,
-};
+  createThreadActionCreator,
+  searchThreadActionCreator,
+  asyncCreateThread,
+  asyncSearchThread
+}

@@ -1,52 +1,49 @@
-/**
- * @TODO: Define all the actions (creator) for the authUser state
- */
-
-import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import api from '../../utils/api';
+import { hideLoading, showLoading } from 'react-redux-loading-bar'
+import api from '../../utils/api'
 
 const ActionType = {
   SET_AUTH_USER: 'SET_AUTH_USER',
-  UNSET_AUTH_USER: 'UNSET_AUTH_USER',
-};
+  UNSET_AUTH_USER: 'UNSET_AUTH_USER'
+}
 
-function setAuthUserActionCreator(authUser) {
+function setAuthUserActionCreator (authUser) {
   return {
     type: ActionType.SET_AUTH_USER,
     payload: {
-      authUser,
-    },
-  };
+      authUser
+    }
+  }
 }
 
-function unsetAuthUserActionCreator() {
+function unsetAuthUserActionCreator () {
   return {
-    type: ActionType.UNSET_AUTH_USER,
-  };
+    type: ActionType.UNSET_AUTH_USER
+  }
 }
 
-function asyncSetAuthUser({ email, password }) {
+function asyncSetAuthUser ({ email, password }) {
   return async (dispatch) => {
-    dispatch(showLoading());
+    dispatch(showLoading())
 
     try {
-      const token = await api.login({ email, password });
-      api.putAccessToken(token);
-      const authUser = await api.getOwnProfile();
-      dispatch(setAuthUserActionCreator(authUser));
+      const token = await api.login({ email, password })
+      api.putAccessToken(token)
+      const authUser = await api.getOwnProfile()
+      dispatch(setAuthUserActionCreator(authUser))
+      alert('Login successful')
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
     }
 
-    dispatch(hideLoading());
-  };
+    dispatch(hideLoading())
+  }
 }
 
-function asyncUnsetAuthUser() {
+function asyncUnsetAuthUser () {
   return (dispatch) => {
-    dispatch(unsetAuthUserActionCreator());
-    api.putAccessToken('');
-  };
+    dispatch(unsetAuthUserActionCreator())
+    api.putAccessToken('')
+  }
 }
 
 export {
@@ -54,5 +51,5 @@ export {
   setAuthUserActionCreator,
   unsetAuthUserActionCreator,
   asyncSetAuthUser,
-  asyncUnsetAuthUser,
-};
+  asyncUnsetAuthUser
+}
