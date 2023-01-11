@@ -15,27 +15,21 @@ import SearchBar from './SearchBar'
 
 describe('SearchBar component', () => {
   it('should handle tag/keyword typing correctly', async () => {
-    // Arrange
     render(<SearchBar search={() => {}} />)
     const searchInput = await screen.getByPlaceholderText('Search by tag or keyword')
 
-    // Action
     await userEvent.type(searchInput, 'general')
 
-    // Assert
     expect(searchInput).toHaveValue('general')
   })
 
   it('should call search function when user is typing', async () => {
-    // Arrange
     const mockSearch = jest.fn()
     render(<SearchBar search={mockSearch} />)
     const searchInput = await screen.getByPlaceholderText('Search by tag or keyword')
 
-    // Action
     await userEvent.type(searchInput, 'general')
 
-    // Assert
     expect(mockSearch).toBeCalledWith('general')
   })
 })
