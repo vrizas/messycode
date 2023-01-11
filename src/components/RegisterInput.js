@@ -2,10 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import useInput from '../hooks/useInput'
 
-function RegisterInput ({ registerHandler, openLoginModal }) {
+function RegisterInput ({ register, openLoginModal, closeModal }) {
   const [registerName, onRegisterNameChange, setRegisterName] = useInput('')
   const [registerEmail, onRegisterEmailChange, setRegisterEmail] = useInput('')
   const [registerPassword, onRegisterPasswordChange, setRegisterPassword] = useInput('')
+
+  const registerHandler = (event, { name, email, password }) => {
+    event.preventDefault()
+    register({ name, email, password })
+    setRegisterName('')
+    setRegisterEmail('')
+    setRegisterPassword('')
+    closeModal()
+  }
 
   return (
     <form className="bg-white px-5 py-4 lg:px-8 lg:py-7 rounded-lg w-3/4 md:w-1/2 lg:w-1/3" onClick={(event) => event.stopPropagation()} onSubmit={(event) => registerHandler(event, { name: registerName, email: registerEmail, password: registerPassword })}>
@@ -22,8 +31,9 @@ function RegisterInput ({ registerHandler, openLoginModal }) {
 }
 
 RegisterInput.propTypes = {
-  registerHandler: PropTypes.func.isRequired,
-  openLoginModal: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
+  openLoginModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired
 }
 
 export default RegisterInput

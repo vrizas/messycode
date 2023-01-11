@@ -26,26 +26,9 @@ function Navigation ({ authUser, login, register, signOut }) {
     registerModalRef.current.classList.add('hidden')
   }
 
-  const loginHandler = (event, { email, password }) => {
-    event.preventDefault()
-    login({ email, password })
-    setLoginEmail('')
-    setLoginPassword('')
-    closeModal()
-  }
-
-  const registerHandler = (event, { name, email, password }) => {
-    event.preventDefault()
-    register({ name, email, password })
-    setRegisterName('')
-    setRegisterEmail('')
-    setRegisterPassword('')
-    closeModal()
-  }
-
   if (authUser) {
     return (
-            <div className="flex items-center gap-3 md:gap-5">
+            <nav className="flex items-center gap-3 md:gap-5">
                 <Link to="/leaderboards" className="text-[#38AC83] flex items-center gap-2">
                     <MdLeaderboard className="text-2xl" />
                     <span className="hidden md:inline">Leaderboards</span>
@@ -54,27 +37,27 @@ function Navigation ({ authUser, login, register, signOut }) {
                     <BsPlusCircleFill className="text-2xl" />
                     <span className="hidden md:inline">Create New Thread</span>
                 </Link>
-                <button className="bg-danger text-white py-2 px-5 rounded-md font-medium text-sm" onClick={signOut}>Logout</button>
-            </div>
+                <button className="logout-btn bg-danger text-white py-2 px-5 rounded-md font-medium text-sm" onClick={signOut}>Logout</button>
+            </nav>
     )
   }
 
   return (
-        <div>
+        <nav>
             <div className="flex items-center gap-3 md:gap-5">
                 <Link to="/leaderboards" className="text-[#38AC83] flex items-center gap-2">
                     <MdLeaderboard className="text-2xl" />
                     <span className="hidden md:inline">Leaderboards</span>
                 </Link>
-                <button className="bg-primary text-white py-2 px-5 rounded-md font-medium" onClick={openLoginModal}>Login</button>
+                <button className="login-btn bg-primary text-white py-2 px-5 rounded-md font-medium" onClick={openLoginModal}>Login</button>
             </div>
             <div className="fixed top-0 left-0 z-40 w-screen h-screen bg-[rgba(0,0,0,.5)] flex items-center justify-center hidden" onClick={closeModal} ref={loginModalRef}>
-                <LoginInput loginHandler={loginHandler} openRegisterModal={openRegisterModal} />
+                <LoginInput login={login} openRegisterModal={openRegisterModal} closeModal={closeModal} />
             </div>
             <div className="fixed top-0 left-0 z-40 w-screen h-screen bg-[rgba(0,0,0,.5)] flex items-center justify-center hidden" onClick={closeModal} ref={registerModalRef}>
-                <RegisterInput registerHandler={registerHandler} openLoginModal={openLoginModal} />
+                <RegisterInput register={register} openLoginModal={openLoginModal} closeModal={closeModal} />
             </div>
-        </div>
+        </nav>
   )
 }
 
