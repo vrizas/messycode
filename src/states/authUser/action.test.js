@@ -1,3 +1,11 @@
+/**
+ * skenario test
+ *
+ * - asyncSetAuthUser thunk
+ *  - should dispatch action correctly when data fetching success
+ *  - should dispatch action and call alert correctly when data fetching failed
+ */
+
 import { hideLoading, showLoading } from 'react-redux-loading-bar'
 import api from '../../utils/api'
 import { asyncSetAuthUser, setAuthUserActionCreator } from './action'
