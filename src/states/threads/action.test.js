@@ -39,6 +39,8 @@ describe('asyncCreateThread thunk', () => {
     api.createThread = () => Promise.resolve(fakeThreadResponse)
     const dispatch = jest.fn()
 
+    window.alert = jest.fn()
+
     await asyncCreateThread({
       title: fakeThreadResponse.title,
       body: fakeThreadResponse.body,
@@ -48,6 +50,7 @@ describe('asyncCreateThread thunk', () => {
     expect(dispatch).toHaveBeenCalledWith(showLoading())
     expect(dispatch).toHaveBeenCalledWith(createThreadActionCreator(fakeThreadResponse))
     expect(dispatch).toHaveBeenCalledWith(hideLoading())
+    expect(window.alert).toBeCalled()
   })
 
   it('should dispatch action and call alert correctly when data fetching failed', async () => {

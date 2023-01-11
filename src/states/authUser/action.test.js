@@ -40,6 +40,8 @@ describe('asyncSetAuthUser thunk', () => {
     api.getOwnProfile = () => Promise.resolve(fakeAuthUserResponse)
     const dispatch = jest.fn()
 
+    window.alert = jest.fn()
+
     await asyncSetAuthUser({
       email: fakeAuthUserResponse.email,
       password: 'password123'
@@ -48,6 +50,7 @@ describe('asyncSetAuthUser thunk', () => {
     expect(dispatch).toHaveBeenCalledWith(showLoading())
     expect(dispatch).toHaveBeenCalledWith(setAuthUserActionCreator(fakeAuthUserResponse))
     expect(dispatch).toHaveBeenCalledWith(hideLoading())
+    expect(window.alert).toBeCalled()
   })
 
   it('should dispatch action and call alert correctly when data fetching failed', async () => {
