@@ -26,7 +26,7 @@ function ThreadCommentInput ({ comment, authUser }) {
   }
 
   return (
-        <p><button className="text-[#38AC83]">Login</button> to give an answer</p>
+        <p><button className="text-primary font-medium">Login</button> to give an answer</p>
   )
 }
 

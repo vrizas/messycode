@@ -1,8 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import useInput from '../hooks/useInput'
+import Form from './styled/Form'
+import Button from './styled/Button'
+import Title from './styled/Title'
+import Wrapper from './styled/Wrapper'
+import Input from './styled/Input'
 
-function LoginInput ({ login, openRegisterModal, closeModal }) {
+function LoginInput ({ size, login, openRegisterModal, closeModal }) {
+  const width = {
+    base: '75%',
+    small: '50%',
+    medium: '80%',
+    large: '90%',
+    extraLarge: '95%'
+  }
+
   const [loginEmail, onLoginEmailChange, setLoginEmail] = useInput('')
   const [loginPassword, onLoginPasswordChange, setLoginPassword] = useInput('')
 
@@ -15,22 +28,31 @@ function LoginInput ({ login, openRegisterModal, closeModal }) {
   }
 
   return (
-    <form className="login-form bg-white px-5 py-4 lg:px-8 lg:py-7 rounded-lg w-3/4 md:w-1/2 lg:w-1/3" onClick={(event) => event.stopPropagation()} onSubmit={(event) => loginHandler(event, { email: loginEmail, password: loginPassword })}>
-        <h2 className="font-medium text-primary text-lg mb-5">Login</h2>
-        <div className="flex flex-col gap-2">
-            <input type="email" value={loginEmail} onChange={onLoginEmailChange} placeholder="Email" className="px-3 py-2 border rounded-md" required />
-            <input type="password" value={loginPassword} onChange={onLoginPasswordChange} placeholder="Password" className="px-3 py-2 border rounded-md" required />
-            <button type="submit" className="bg-primary text-white py-2 px-5 font-medium rounded-md mt-3">Login</button>
-            <p className="text-sm text-center mt-5">Don&apos;t have an account yet? <button className="text-[#38AC83]" onClick={openRegisterModal}>Sign Up</button></p>
-        </div>
-    </form>
+    <Form className="login-form" width={width[size]} onClick={(event) => event.stopPropagation()} onSubmit={(event) => loginHandler(event, { email: loginEmail, password: loginPassword })}>
+        <Title>Login</Title>
+        <Wrapper flexDirection="column" gap="0.5rem">
+            <Input type="email" value={loginEmail} onChange={onLoginEmailChange} placeholder="Email" required />
+            <Input type="password" value={loginPassword} onChange={onLoginPasswordChange} placeholder="Password" required />
+            <Button type="submit" width="100%" margin="0.75rem 0 0 0">Login</Button>
+            <p className="text-sm text-center mt-5">Don&apos;t have an account yet? <button className="text-primary font-medium" onClick={openRegisterModal}>Sign Up</button></p>
+        </Wrapper>
+    </Form>
   )
 }
 
 LoginInput.propTypes = {
+  /** Size of announcement, it will change the size of the form  */
+  size: PropTypes.oneOf(['base', 'small', 'medium', 'large', 'extraLarge']).isRequired,
+  /** Action when the Login button is clicked */
   login: PropTypes.func.isRequired,
+  /** Action when the Sign Up button is clicked */
   openRegisterModal: PropTypes.func.isRequired,
+  /** Action of announcement, when user logged in */
   closeModal: PropTypes.func.isRequired
+}
+
+LoginInput.defaultProps = {
+  size: 'base'
 }
 
 export default LoginInput

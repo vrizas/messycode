@@ -29,11 +29,11 @@ function Navigation ({ authUser, login, register, signOut }) {
   if (authUser) {
     return (
             <nav className="flex items-center gap-3 md:gap-5">
-                <Link to="/leaderboards" className="text-[#38AC83] flex items-center gap-2">
+                <Link to="/leaderboards" className="text-primary flex items-center gap-2">
                     <MdLeaderboard className="text-2xl" />
                     <span className="hidden md:inline">Leaderboards</span>
                 </Link>
-                <Link to="/thread/create" className="text-[#38AC83] flex items-center gap-2">
+                <Link to="/thread/create" className="text-primary flex items-center gap-2">
                     <BsPlusCircleFill className="text-2xl" />
                     <span className="hidden md:inline">Create New Thread</span>
                 </Link>
@@ -45,7 +45,7 @@ function Navigation ({ authUser, login, register, signOut }) {
   return (
         <nav>
             <div className="flex items-center gap-3 md:gap-5">
-                <Link to="/leaderboards" className="text-[#38AC83] flex items-center gap-2">
+                <Link to="/leaderboards" className="text-primary flex items-center gap-2">
                     <MdLeaderboard className="text-2xl" />
                     <span className="hidden md:inline">Leaderboards</span>
                 </Link>
